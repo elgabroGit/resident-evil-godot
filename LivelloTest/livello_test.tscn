@@ -1,0 +1,93 @@
+[gd_scene load_steps=14 format=3 uid="uid://64b0c4nj4ciy"]
+
+[ext_resource type="PackedScene" uid="uid://cwwg0rqavood8" path="res://Hero/hero.tscn" id="1_012ve"]
+[ext_resource type="Texture2D" uid="uid://dbt0hv34odchc" path="res://kenny_protypes/Dark/texture_01.png" id="1_b5ci7"]
+[ext_resource type="PackedScene" uid="uid://cukj02mkellsd" path="res://Commons/AreaCamera.tscn" id="2_f6n0d"]
+[ext_resource type="Texture2D" uid="uid://g6fk5kkdctwe" path="res://kenny_protypes/Orange/texture_08.png" id="4_ciuim"]
+[ext_resource type="Texture2D" uid="uid://v1g3u08opa3g" path="res://kenny_protypes/Purple/texture_03.png" id="5_ga0d7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qeffc"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_ri35q"]
+sky_material = SubResource("ProceduralSkyMaterial_qeffc")
+
+[sub_resource type="Environment" id="Environment_3cw0w"]
+background_mode = 2
+sky = SubResource("Sky_ri35q")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_82lc2"]
+albedo_texture = ExtResource("1_b5ci7")
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2jy2l"]
+size = Vector2(20, 20)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_c36yx"]
+data = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0, -10, 10, 0, -10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gu0x4"]
+albedo_texture = ExtResource("4_ciuim")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rs3an"]
+albedo_texture = ExtResource("5_ga0d7")
+uv1_triplanar = true
+
+[node name="LivelloTest" type="Node3D"]
+
+[node name="Ambiente" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Ambiente"]
+environment = SubResource("Environment_3cw0w")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Ambiente"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="hero" parent="." instance=ExtResource("1_012ve")]
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="AreaCamera" parent="Cameras" instance=ExtResource("2_f6n0d")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 0, 5)
+
+[node name="AreaCamera2" parent="Cameras" instance=ExtResource("2_f6n0d")]
+
+[node name="AreaCamera3" parent="Cameras" instance=ExtResource("2_f6n0d")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0, -5)
+
+[node name="AreaCamera4" parent="Cameras" instance=ExtResource("2_f6n0d")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4, 0, -5)
+
+[node name="Build" type="Node3D" parent="."]
+
+[node name="Pavimento" type="MeshInstance3D" parent="Build"]
+material_override = SubResource("StandardMaterial3D_82lc2")
+mesh = SubResource("PlaneMesh_2jy2l")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Build/Pavimento"]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Build/Pavimento/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_c36yx")
+
+[node name="Marco" type="CSGBox3D" parent="Build"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.06049, 6)
+material_override = SubResource("StandardMaterial3D_gu0x4")
+use_collision = true
+collision_layer = 4
+collision_mask = 3
+size = Vector3(1, 2.12781, 1)
+
+[node name="Flavio" type="CSGBox3D" parent="Build"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.04628, 1.06049, 6)
+material_override = SubResource("StandardMaterial3D_rs3an")
+use_collision = true
+collision_layer = 4
+collision_mask = 3
+size = Vector3(1, 2.12781, 1)
