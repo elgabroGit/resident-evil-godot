@@ -3,12 +3,12 @@ using System;
 
 public abstract partial class State : Node
 {
-    protected Character characterNode;
+    protected Entity characterNode;
 	public Func<bool> CanTransition = () => true;
 
     public override void _Ready()
     {
-        characterNode = GetOwner<Character>();
+        characterNode = GetOwner<Entity>();
 		SetPhysicsProcess(false);
 		SetProcessInput(false);
     }

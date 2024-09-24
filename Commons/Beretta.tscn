@@ -190,6 +190,7 @@ bus = &"Gunshot"
 transform = Transform3D(26.7698, 96.3443, -1.0815, -22.5982, 7.36938, 97.134, 93.6627, -25.7581, 23.7448, 4.74665, -50.2329, -10.1231)
 enabled = false
 target_position = Vector3(0, 0, 10)
+collision_mask = 4
 collide_with_areas = true
 debug_shape_custom_color = Color(1, 0, 0, 1)
 debug_shape_thickness = 5

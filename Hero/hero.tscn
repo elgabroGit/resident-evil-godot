@@ -3156,13 +3156,13 @@ height = 1.88183
 [sub_resource type="SphereShape3D" id="SphereShape3D_taqpd"]
 radius = 6.92764
 
-[node name="hero" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "StateMachineNode", "ControllerNode", "EnemyDetectionArea")]
+[node name="hero" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "StateMachineNode", "EnemyDetectionArea", "ControllerNode")]
 collision_layer = 2
 script = ExtResource("1_qn802")
 AnimPlayerNode = NodePath("AnimationPlayer")
 StateMachineNode = NodePath("StateMachine")
-ControllerNode = NodePath("Controller")
 EnemyDetectionArea = NodePath("EnemyDetectionArea")
+ControllerNode = NodePath("Controller")
 
 [node name="Armature" type="Node3D" parent="."]
 transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
@@ -3461,7 +3461,7 @@ mesh = SubResource("ArrayMesh_485vv")
 skin = SubResource("Skin_rc08i")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D"]
-transform = Transform3D(0.634321, -0.213405, 0.743031, 0.766763, 0.296197, -0.569511, -0.0985469, 0.930981, 0.351515, -29.9939, 15.0907, -104.685)
+transform = Transform3D(0.634321, -0.213405, 0.743031, 0.766763, 0.296197, -0.569511, -0.0985468, 0.930981, 0.351515, -29.9939, 15.0907, -104.685)
 bone_name = "mixamorig_RightHand"
 bone_idx = 22
 
@@ -3472,6 +3472,7 @@ currentWeapon = NodePath("Beretta")
 weaponList = [NodePath("Beretta"), NodePath("Rifle")]
 
 [node name="Beretta" parent="Armature/Skeleton3D/BoneAttachment3D/WeaponManager" instance=ExtResource("4_2hdp3")]
+damage = 10
 
 [node name="Rifle" parent="Armature/Skeleton3D/BoneAttachment3D/WeaponManager" instance=ExtResource("5_druhe")]
 
@@ -3480,7 +3481,6 @@ libraries = {
 "": SubResource("AnimationLibrary_luhx3")
 }
 autoplay = "idle"
-playback_default_blend_time = 0.2
 blend_times = [&"run", &"walk", 0.2, &"run", &"idle", 0.1, &"walk", &"run", 0.2, &"walk", &"idle", 0.2, &"idle", &"walk", 0.2]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

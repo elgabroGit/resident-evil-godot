@@ -5,6 +5,7 @@ public partial class CharacterShotState : State
 {
 	[Export] private WeaponManager weaponManager;
 	[Export(PropertyHint.Range, "0,20,0.1")] public float lerp = 2;
+	public Entity entity = null;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -45,10 +46,20 @@ public partial class CharacterShotState : State
 		// Attiva il raycast per il colpo
 		weaponManager.currentWeapon.rayCast3D.Enabled = true;
 		weaponManager.currentWeapon.rayCast3D.ForceRaycastUpdate();  // Aggiorna subito il raycast per rilevare eventuali colpi
+		entity = weaponManager.currentWeapon.rayCast3D.GetCollider() as Entity;
+		
+		if(entity != null){
+			TriggerDamage(weaponManager.currentWeapon);
+		}
 
 		// Inizia il timer per disattivare il raycast dopo lo sparo
 		weaponManager.currentWeapon.reloadTimer.Timeout += HandleShotTimeout;
 		weaponManager.currentWeapon.reloadTimer.Start();
+	}
+
+	private void TriggerDamage(Weapon weapon)
+	{
+		entity.TakeDamage(weapon);
 	}
 
 	private void HandleShotTimeout()
