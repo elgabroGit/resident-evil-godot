@@ -3,12 +3,6 @@ using System;
 
 public partial class EnemyIdleState : State
 {
-    public override void _Ready()
-    {
-        base._Ready();
-        characterNode.EnemyDetectionArea.BodyEntered += HandlePlayerEntered;
-    }
-
     private void HandlePlayerEntered(Node3D body)
     {
         characterNode.StateMachineNode.SwitchState<EnemyChaseState>();
@@ -17,7 +11,9 @@ public partial class EnemyIdleState : State
     protected override void EnterState()
 	{
 		base.EnterState();
+        characterNode.EnemyDetectionArea.BodyEntered += HandlePlayerEntered;
 		characterNode.AnimPlayerNode.Play("idle");
+        GD.Print("Enter");
 	}
 
         protected override void ExitState()
