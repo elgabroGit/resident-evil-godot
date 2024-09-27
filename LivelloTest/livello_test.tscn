@@ -66,5 +66,6 @@ shape = SubResource("ConcavePolygonShape3D_c36yx")
 [node name="Enemies" type="Node3D" parent="."]
 
 [node name="Zombie" parent="Enemies" instance=ExtResource("6_onqyp")]
+MaxHealthValue = 90
 
 [editable path="Cameras/AreaCamera"]

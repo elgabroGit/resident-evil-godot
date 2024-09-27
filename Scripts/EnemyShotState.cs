@@ -7,6 +7,7 @@ public partial class EnemyShotState : State
     [Export] private int staggerHits = 3;
     private static int counter = 0;
     [Export] private AudioStreamPlayer3D[] audios;
+    [Export] private Timer staggerReset;
 
     public override void _Ready()
     {
@@ -16,10 +17,21 @@ public partial class EnemyShotState : State
     protected override void EnterState()
     {
         var random = new RandomNumberGenerator();
+        
+        staggerReset.Start();
+        
+        // Todo: Genera un errore la prima volta che viene chiamato.
+        staggerReset.Timeout -= ResetStagger;
+        
+        staggerReset.Timeout += ResetStagger;
         random.Randomize();
         audios[random.RandiRange(0,audios.Length - 1)].Play();
         characterNode.HealthValue -= characterNode.damageReceived;
-        counter++;
+
+        if(characterNode.weaponDamager.fireType != GameConstants.FireType.AUTOMATIC)
+        {
+            counter++;
+        }
         if (counter == staggerHits)
         {
             counter = 0;
@@ -29,17 +41,26 @@ public partial class EnemyShotState : State
         }
         else
         {
-            characterNode.AnimPlayerNode.Play("damage");
+            
             characterNode.StateMachineNode.SwitchState<EnemyChaseState>();
         }
     }
+
+    private void ResetStagger()
+    {
+        counter = 0;
+        GD.Print("Resetted");
+    }
+
 
     private void HandleAnimationFinished(StringName animName)
     {
         if (animName == "damage")
         {
-            characterNode.StateMachineNode.SwitchState<EnemyChaseState>();
             characterNode.AnimPlayerNode.AnimationFinished -= HandleAnimationFinished;
+            characterNode.StateMachineNode.SwitchState<EnemyChaseState>();
         }
     }
+
+
 }

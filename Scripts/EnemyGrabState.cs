@@ -11,8 +11,6 @@ public partial class EnemyGrabState : State
         
         if(grabCooldown.IsStopped())
         {
-            GD.Print("EnterGrab");
-            GD.Print("Animazione Corrente: " + characterNode.AnimPlayerNode.CurrentAnimation);
             characterNode.AnimPlayerNode.Play("grab");
             grabCooldown.Start();
             characterNode.AnimPlayerNode.AnimationFinished += HandleAnimationFinished;

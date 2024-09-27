@@ -47,7 +47,7 @@ public partial class Controller : Node
     public override void _Process(double delta)
     {
         base._Process(delta);
-        //GD.Print("Moving: " + shooting);
+
     }
 
     // Metodo per controllare se la direzione è cambiata

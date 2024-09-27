@@ -7,8 +7,8 @@ public partial class Zombie : Entity
     public override void TakeDamage(Weapon weapon)
     {
         damageReceived = weapon.damage;
+        weaponDamager = weapon;
         StateMachineNode.SwitchState<EnemyShotState>();
-        GD.Print(HealthValue);
     }
 
     public override void Die()

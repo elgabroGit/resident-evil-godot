@@ -35,7 +35,6 @@ public partial class GameManager : Node
         base._Process(delta);
         if(gameState == GameConstants.GameState.PLAYER_DEAD)
         {
-            GD.Print("Death Timer Start");
             deathTimer.Start();
             SetProcess(false);
         }

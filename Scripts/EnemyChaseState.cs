@@ -13,8 +13,6 @@ public partial class EnemyChaseState : State
 		base.EnterState();
         
         SetPhysicsProcess(true);
-        GD.Print("EnterWalkState");
-        GD.Print(IsPhysicsProcessing());
 		characterNode.AnimPlayerNode.Play("walk");
         characterNode.EnemyDetectionArea.BodyExited += HandlePlayerExited;
         grabArea.BodyEntered += HandleGrab;

@@ -6,7 +6,6 @@ public partial class CharacterGrabbedState : State
     protected override void EnterState()
     {
         base.EnterState();
-        GD.Print("Enter grabbed state");
         characterNode.AnimPlayerNode.Play("grabbed");
         characterNode.HealthValue -= characterNode.damageReceived;
         characterNode.AnimPlayerNode.AnimationFinished += HandleAnimationFinished;
