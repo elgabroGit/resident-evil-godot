@@ -15,4 +15,6 @@ public partial class Zombie : Entity
     {
          StateMachineNode.SwitchState<EnemyDeathState>();
     }
+
+
 }

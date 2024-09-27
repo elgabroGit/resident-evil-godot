@@ -33,7 +33,7 @@ public partial class EnemyShotState : State
     {
         if (animName == "damage")
         {
-            characterNode.StateMachineNode.SwitchState<EnemyIdleState>();
+            characterNode.StateMachineNode.SwitchState<EnemyChaseState>();
             characterNode.AnimPlayerNode.AnimationFinished -= HandleAnimationFinished;
         }
     }

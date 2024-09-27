@@ -14,9 +14,13 @@ public abstract partial class Entity : CharacterBody3D
     public int HealthValue; 
     public int damageReceived = 0;
 
+    public float originalSphereRadius;
+
     public override void _Ready()
     {
         HealthValue = MaxHealthValue;
+        SphereShape3D sphere = (SphereShape3D) EnemyDetectionArea.GetChild<CollisionShape3D>(0).Shape;
+        originalSphereRadius = sphere.Radius;
     }
 
     public override void _Process(double delta)
@@ -25,6 +29,20 @@ public abstract partial class Entity : CharacterBody3D
         {
             Die();
         }
+    }
+
+    public void EnlargeDetectionArea()
+    {
+        SphereShape3D sphere = (SphereShape3D) EnemyDetectionArea.GetChild<CollisionShape3D>(0).Shape;
+        sphere.Radius *= 1.1f;
+        EnemyDetectionArea.GetChild<CollisionShape3D>(0).Shape = sphere;
+    }
+
+    public void RestoreDetectionArea()
+    {
+        SphereShape3D sphere = (SphereShape3D) EnemyDetectionArea.GetChild<CollisionShape3D>(0).Shape;
+        sphere.Radius = originalSphereRadius;
+        EnemyDetectionArea.GetChild<CollisionShape3D>(0).Shape = sphere;
     }
 
     public virtual void TakeDamage(Weapon weapon){}

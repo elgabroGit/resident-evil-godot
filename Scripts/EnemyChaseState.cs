@@ -11,9 +11,6 @@ public partial class EnemyChaseState : State
     protected override void EnterState()
 	{
 		base.EnterState();
-
-        
-
 		characterNode.AnimPlayerNode.Play("walk");
         characterNode.EnemyDetectionArea.BodyExited += HandlePlayerExited;
         grabArea.BodyEntered += HandleGrab;
@@ -25,8 +22,10 @@ public partial class EnemyChaseState : State
     {
         base._PhysicsProcess(delta);
         if( characterNode.EnemyDetectionArea.HasOverlappingBodies() ){ 
+            characterNode.AnimPlayerNode.Play("walk");
             target = (Entity) characterNode.EnemyDetectionArea.GetOverlappingBodies()[0];
         }else{
+            characterNode.EnlargeDetectionArea();
             return;
         }
 

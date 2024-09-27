@@ -64,7 +64,7 @@ shape = SubResource("ConcavePolygonShape3D_c36yx")
 
 [node name="Zombie" parent="Enemies" instance=ExtResource("6_onqyp")]
 transform = Transform3D(-0.400221, 0, -0.24642, 0, 0.47, 0, 0.24642, 0, -0.400221, -0.0119114, 0.0113058, 5.00493)
-MaxHealthValue = 100
+MaxHealthValue = 10
 
 [node name="hero" parent="." instance=ExtResource("1_012ve")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.54246)

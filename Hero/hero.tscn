@@ -172,7 +172,7 @@ radius = 0.554678
 height = 1.88183
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_taqpd"]
-radius = 6.92764
+radius = 54.0
 
 [sub_resource type="Animation" id="Animation_fkpmv"]
 resource_name = "grabbed"
@@ -3846,7 +3846,6 @@ currentWeapon = NodePath("Beretta")
 weaponList = [NodePath("Beretta"), NodePath("Rifle")]
 
 [node name="Beretta" parent="Armature/Skeleton3D/BoneAttachment3D/WeaponManager" instance=ExtResource("4_2hdp3")]
-visible = false
 
 [node name="Rifle" parent="Armature/Skeleton3D/BoneAttachment3D/WeaponManager" instance=ExtResource("5_druhe")]
 
