@@ -1707,7 +1707,7 @@ shape = SubResource("SphereShape3D_38f0b")
 [node name="GrabArea" type="Area3D" parent="."]
 process_mode = 3
 transform = Transform3D(2.12766, 0, 0, 0, 2.12766, 0, 0, 0, 2.12766, -0.0938621, 3.35315, 1.12859)
-collision_layer = 4
+collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrabArea"]
