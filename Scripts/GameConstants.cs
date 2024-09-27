@@ -22,6 +22,15 @@ public class GameConstants
     public const string INPUT_SWITCH_UP = "switch_up";
     public const string INPUT_SWITCH_DOWN = "switch_down";
 
+    public enum GameState{
+        RUNNING,
+        PLAYER_DEAD,
+        GAMEOVER,
+        MENU,
+        CUTSCENE,
+        MAINMENU
+    }
+
     // Notification System
     public const int NOTIFICATION_ENTER_STATE = 5001;
     public const int NOTIFICATION_EXIT_STATE = 5002;

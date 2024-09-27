@@ -15,6 +15,12 @@ public partial class EnemyChaseState : State
         characterNode.EnemyDetectionArea.BodyExited += HandlePlayerExited;
         grabArea.BodyEntered += HandleGrab;
         if(target == null){ characterNode.StateMachineNode.SwitchState<EnemyIdleState>(); }
+
+        if(GameManager.Instance.gameState == GameConstants.GameState.PLAYER_DEAD)
+        {
+            characterNode.StateMachineNode.SwitchState<EnemyIdleState>();
+        }
+
 	}
 
 

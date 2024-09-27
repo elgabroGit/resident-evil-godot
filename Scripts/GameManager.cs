@@ -4,6 +4,8 @@ using System;
 public partial class GameManager : Node
 {
     public static GameManager Instance { get; private set; }
+
+    public GameConstants.GameState gameState;
     
     public Camera3D ActiveCamera { get; set; }
 
@@ -12,6 +14,7 @@ public partial class GameManager : Node
         if (Instance == null)
         {
             Instance = this;
+            gameState = GameConstants.GameState.RUNNING;
             // Impedisce la distruzione del singleton quando si cambia scena
             SetProcess(true);
         }
@@ -24,5 +27,11 @@ public partial class GameManager : Node
     public override void _Process(double delta)
     {
         base._Process(delta);
+        GD.Print(gameState);
+    }
+
+    public void ChangeGameState(GameConstants.GameState newState)
+    {
+        gameState = newState;
     }
 }

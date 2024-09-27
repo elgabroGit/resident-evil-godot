@@ -13,8 +13,7 @@ public partial class Zombie : Entity
 
     public override void Die()
     {
-         StateMachineNode.SwitchState<EnemyDeathState>();
+        StateMachineNode.SwitchState<EnemyDeathState>();
     }
-
 
 }
