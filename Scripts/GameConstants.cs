@@ -34,4 +34,7 @@ public class GameConstants
     // Notification System
     public const int NOTIFICATION_ENTER_STATE = 5001;
     public const int NOTIFICATION_EXIT_STATE = 5002;
+
+    // Internal Game Values
+    public const int TIMER_TO_DEATH = 5;
 }

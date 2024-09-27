@@ -13,7 +13,6 @@ public partial class CharacterDeathState : State
         GameManager.Instance.ChangeGameState(GameConstants.GameState.PLAYER_DEAD);
         collisionShape.QueueFree();
         deathSound.Play();
-
     }
 
 }
