@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bgo648gcuf5rx"]
+[gd_scene load_steps=23 format=3 uid="uid://bgo648gcuf5rx"]
 
 [ext_resource type="Texture2D" uid="uid://bh2f35jqqb2ha" path="res://Enemy/zombie_D_Zombie_2.png" id="1_b0pto"]
 [ext_resource type="Script" path="res://Scripts/Zombie.cs" id="1_qu4hc"]
@@ -6,8 +6,11 @@
 [ext_resource type="Script" path="res://Scripts/EnemyIdleState.cs" id="4_4hrrh"]
 [ext_resource type="Script" path="res://Scripts/EnemyChaseState.cs" id="5_3q35m"]
 [ext_resource type="Script" path="res://Scripts/EnemyShotState.cs" id="6_b2jk7"]
+[ext_resource type="AudioStream" uid="uid://defyfbbpgbaew" path="res://assets/audio/zombie_hitted_1.ogg" id="7_1xj81"]
 [ext_resource type="Script" path="res://Scripts/EnemyGrabState.cs" id="7_qvpf1"]
+[ext_resource type="AudioStream" uid="uid://bggbgu128r5kq" path="res://assets/audio/zombie_hitted_2.ogg" id="8_3dnbp"]
 [ext_resource type="Script" path="res://Scripts/EnemyDeathState.cs" id="8_cfuqa"]
+[ext_resource type="AudioStream" uid="uid://bwjvxkssq23uj" path="res://assets/audio/zombie_die.ogg" id="11_rwf2c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hgq6x"]
 resource_name = "M_ZombieReg"
@@ -1668,7 +1671,7 @@ libraries = {
 autoplay = "idle"
 playback_default_blend_time = 0.2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="HitBox" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.99264, 0)
 shape = SubResource("CylinderShape3D_2d3ik")
 
@@ -1686,16 +1689,28 @@ speed = 4.0
 grabArea = NodePath("../../GrabArea")
 grabCooldown = NodePath("../../GrabArea/GrabCooldown")
 
-[node name="Shot" type="Node" parent="StateMachine"]
+[node name="Shot" type="Node" parent="StateMachine" node_paths=PackedStringArray("audios")]
 script = ExtResource("6_b2jk7")
+audios = [NodePath("Hit1"), NodePath("Hit2")]
+
+[node name="Hit1" type="AudioStreamPlayer3D" parent="StateMachine/Shot"]
+stream = ExtResource("7_1xj81")
+
+[node name="Hit2" type="AudioStreamPlayer3D" parent="StateMachine/Shot"]
+stream = ExtResource("8_3dnbp")
 
 [node name="Grab" type="Node" parent="StateMachine" node_paths=PackedStringArray("grabCooldown", "grabArea")]
 script = ExtResource("7_qvpf1")
 grabCooldown = NodePath("../../GrabArea/GrabCooldown")
 grabArea = NodePath("../../GrabArea")
 
-[node name="Death" type="Node" parent="StateMachine"]
+[node name="Death" type="Node" parent="StateMachine" node_paths=PackedStringArray("deathSound", "collisionShape")]
 script = ExtResource("8_cfuqa")
+deathSound = NodePath("Die1")
+collisionShape = NodePath("../../HitBox")
+
+[node name="Die1" type="AudioStreamPlayer3D" parent="StateMachine/Death"]
+stream = ExtResource("11_rwf2c")
 
 [node name="PlayerDetectionArea" type="Area3D" parent="."]
 collision_layer = 0

@@ -184,6 +184,7 @@ one_shot = true
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(0.267698, 0.963442, -0.010815, -0.225982, 0.0736939, 0.97134, 0.936627, -0.257581, 0.237448, 3.05571, 10.1367, 3.01144)
 stream = ExtResource("4_3bunk")
+volume_db = -15.319
 bus = &"Gunshot"
 
 [node name="RayCastGun" type="RayCast3D" parent="."]
