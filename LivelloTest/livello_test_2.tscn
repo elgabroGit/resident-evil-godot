@@ -1,0 +1,96 @@
+[gd_scene load_steps=13 format=3 uid="uid://c0x87pfyqkaqo"]
+
+[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain.gd" id="1_6c43i"]
+[ext_resource type="Resource" path="res://TerrainData/data.hterrain" id="2_ng6fi"]
+[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="3_4sleb"]
+[ext_resource type="PackedScene" uid="uid://cwwg0rqavood8" path="res://Hero/hero.tscn" id="4_xvpu3"]
+[ext_resource type="Texture2D" uid="uid://bt6ab0lhcbgxe" path="res://LivelloTest/livello_test_2_slot0_albedo_bump.png" id="4_xwdk1"]
+[ext_resource type="Texture2D" uid="uid://dpeloas1m708f" path="res://LivelloTest/livello_test_2_slot0_normal_roughness.png" id="5_303ql"]
+[ext_resource type="PackedScene" uid="uid://cukj02mkellsd" path="res://Commons/AreaCamera.tscn" id="5_llwe2"]
+[ext_resource type="PackedScene" uid="uid://bgo648gcuf5rx" path="res://Enemy/Enemy.tscn" id="8_gq1ku"]
+
+[sub_resource type="Resource" id="Resource_g4x1p"]
+script = ExtResource("3_4sleb")
+mode = 0
+textures = [[ExtResource("4_xwdk1")], [ExtResource("5_303ql")]]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nv2nx"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_k48pa"]
+sky_material = SubResource("ProceduralSkyMaterial_nv2nx")
+
+[sub_resource type="Environment" id="Environment_ems16"]
+background_mode = 2
+sky = SubResource("Sky_k48pa")
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_height = -1024.0
+fog_height_density = 16.0
+
+[node name="LivelloTest2" type="Node3D"]
+
+[node name="HTerrain" type="Node3D" parent="."]
+script = ExtResource("1_6c43i")
+map_scale = Vector3(0.2, 0.2, 0.2)
+centered = true
+_terrain_data = ExtResource("2_ng6fi")
+chunk_size = 32
+collision_enabled = true
+collision_layer = 1
+collision_mask = 1
+shader_type = "Classic4Lite"
+custom_shader = null
+custom_globalmap_shader = null
+texture_set = SubResource("Resource_g4x1p")
+render_layers = 1
+cast_shadow = 1
+shader_params/u_ground_uv_scale = 20
+shader_params/u_depth_blending = true
+shader_params/u_triplanar = null
+shader_params/u_tile_reduction = null
+
+[node name="hero2" parent="." instance=ExtResource("4_xvpu3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.74065, 0, -11.7306)
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="AreaCamera" parent="Cameras" instance=ExtResource("5_llwe2")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.82221, 0, 29.0066)
+
+[node name="AreaCamera2" parent="Cameras" instance=ExtResource("5_llwe2")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.82221, 0, -18.8761)
+
+[node name="AreaCamera3" parent="Cameras" instance=ExtResource("5_llwe2")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.82221, 0, 19.1107)
+
+[node name="AreaCamera4" parent="Cameras" instance=ExtResource("5_llwe2")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.82221, 0, -0.0187454)
+
+[node name="AreaCamera5" parent="Cameras" instance=ExtResource("5_llwe2")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.82221, 0, -9.47138)
+
+[node name="AreaCamera6" parent="Cameras" instance=ExtResource("5_llwe2")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.82221, 0, 9.36715)
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_ems16")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+light_energy = 0.05
+light_indirect_energy = 1.002
+light_volumetric_fog_energy = 16.0
+shadow_enabled = true
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Zombie" parent="Enemies" instance=ExtResource("8_gq1ku")]
+transform = Transform3D(0.47, 0, 0, 0, 0.47, 0, 0, 0, 0.47, 7.43524, 0, -5.99775)
+
+[node name="Zombie2" parent="Enemies" instance=ExtResource("8_gq1ku")]
+transform = Transform3D(0.47, 0, 0, 0, 0.47, 0, 0, 0, 0.47, 9.88443, 0, 0)
