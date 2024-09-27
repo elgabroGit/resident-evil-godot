@@ -8,8 +8,11 @@ public partial class EnemyGrabState : State
 
     protected override void EnterState()
     {
+        
         if(grabCooldown.IsStopped())
         {
+            GD.Print("EnterGrab");
+            GD.Print("Animazione Corrente: " + characterNode.AnimPlayerNode.CurrentAnimation);
             characterNode.AnimPlayerNode.Play("grab");
             grabCooldown.Start();
             characterNode.AnimPlayerNode.AnimationFinished += HandleAnimationFinished;
@@ -22,11 +25,14 @@ public partial class EnemyGrabState : State
     {
         characterNode.AnimPlayerNode.AnimationFinished -= HandleAnimationFinished;
         grabCooldown.Timeout -= HandleTimeout;
-
     }
-
+    
     private void HandleAnimationFinished(StringName animName)
     {
+        Character player = (Character) characterNode.enemyGrabbed; 
+        Zombie zombie = (Zombie) characterNode;
+        player.damageReceived = zombie.baseGrabDamage;
+        player.HealthValue -= player.damageReceived;
         characterNode.StateMachineNode.SwitchState<EnemyChaseState>();
     }
 

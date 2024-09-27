@@ -15,6 +15,7 @@ public abstract partial class Entity : CharacterBody3D
     public int damageReceived = 0;
 
     public float originalSphereRadius;
+    public Node3D enemyGrabbed;
 
     public override void _Ready()
     {

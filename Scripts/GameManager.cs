@@ -27,7 +27,6 @@ public partial class GameManager : Node
     public override void _Process(double delta)
     {
         base._Process(delta);
-        GD.Print(gameState);
     }
 
     public void ChangeGameState(GameConstants.GameState newState)

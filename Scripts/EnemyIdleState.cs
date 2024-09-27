@@ -13,7 +13,6 @@ public partial class EnemyIdleState : State
 		base.EnterState();
         characterNode.EnemyDetectionArea.BodyEntered += HandlePlayerEntered;
 		characterNode.AnimPlayerNode.Play("idle");
-        GD.Print("Enter");
 	}
 
         protected override void ExitState()

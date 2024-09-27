@@ -7,4 +7,9 @@ public partial class Character : Entity
     {
         StateMachineNode.SwitchState<CharacterDeathState>();
     }
+
+    public void Grabbed()
+    {
+        StateMachineNode.SwitchState<CharacterGrabbedState>();
+    }
 }
