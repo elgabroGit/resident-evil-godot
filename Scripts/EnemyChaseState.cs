@@ -11,16 +11,24 @@ public partial class EnemyChaseState : State
     protected override void EnterState()
 	{
 		base.EnterState();
+
+        
+
 		characterNode.AnimPlayerNode.Play("walk");
         characterNode.EnemyDetectionArea.BodyExited += HandlePlayerExited;
         grabArea.BodyEntered += HandleGrab;
+        if(target == null){ characterNode.StateMachineNode.SwitchState<EnemyIdleState>(); }
 	}
 
 
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        target = (Entity) characterNode.EnemyDetectionArea.GetOverlappingBodies()[0];
+        if( characterNode.EnemyDetectionArea.HasOverlappingBodies() ){ 
+            target = (Entity) characterNode.EnemyDetectionArea.GetOverlappingBodies()[0];
+        }else{
+            return;
+        }
 
         Vector3 targetPosition = target.GlobalTransform.Origin;
         Vector3 characterPosition = characterNode.GlobalTransform.Origin;
@@ -56,6 +64,7 @@ public partial class EnemyChaseState : State
     {
         if(grabCooldown.IsStopped())
         {
+            if( body == null) { return; }
             body.GlobalPosition = new Vector3(grabArea.GlobalPosition.X,0,grabArea.GlobalPosition.Z);
             Character player = (Character) body;
             Zombie zombie = (Zombie) characterNode;
