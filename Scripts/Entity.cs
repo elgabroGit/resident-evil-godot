@@ -13,7 +13,7 @@ public abstract partial class Entity : CharacterBody3D
     [Export] public int MaxHealthValue {get; private set; }
     public int HealthValue; 
     public int damageReceived = 0;
-    public Weapon weaponDamager = null;
+    
 
     public float originalSphereRadius;
     public Node3D enemyGrabbed;

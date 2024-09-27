@@ -4,6 +4,8 @@ using System;
 public partial class Zombie : Entity
 {   
     [Export] public int baseGrabDamage = 5;
+    public Weapon weaponDamager = null;
+    
     public override void TakeDamage(Weapon weapon)
     {
         damageReceived = weapon.damage;

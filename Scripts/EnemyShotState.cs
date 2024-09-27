@@ -28,7 +28,7 @@ public partial class EnemyShotState : State
         audios[random.RandiRange(0,audios.Length - 1)].Play();
         characterNode.HealthValue -= characterNode.damageReceived;
 
-        if(characterNode.weaponDamager.fireType != GameConstants.FireType.AUTOMATIC)
+        if(((Zombie) characterNode).weaponDamager.fireType != GameConstants.FireType.AUTOMATIC)
         {
             counter++;
         }
