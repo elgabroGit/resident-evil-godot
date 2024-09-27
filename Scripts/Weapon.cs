@@ -6,6 +6,7 @@ public partial class Weapon : Node3D
     [ExportGroup("Weapon Stat")]
     [Export] public int damage = 1;
     [Export] public int magazineAmount = 7;
+    [Export] public GameConstants.FireType fireType = GameConstants.FireType.MANUAL;
 
     [ExportGroup("Weapon Local Data")]
     [Export] public MeshInstance3D meshInstance3D;

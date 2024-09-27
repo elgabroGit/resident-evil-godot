@@ -1575,6 +1575,7 @@ script = ExtResource("1_qu4hc")
 AnimPlayerNode = NodePath("AnimationPlayer")
 StateMachineNode = NodePath("StateMachine")
 EnemyDetectionArea = NodePath("PlayerDetectionArea")
+MaxHealthValue = 2
 
 [node name="Armature" type="Node3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 2.155, 0)

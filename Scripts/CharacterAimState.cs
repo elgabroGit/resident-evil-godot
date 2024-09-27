@@ -55,7 +55,17 @@ public partial class CharacterAimState : State
         if(characterNode.ControllerNode.shot)
         {
             canAim = false;
-            characterNode.StateMachineNode.SwitchState<CharacterShotState>(); 
+
+            if(weaponManager.currentWeapon.fireType == GameConstants.FireType.MANUAL)
+            {
+                characterNode.StateMachineNode.SwitchState<CharacterShotState>(); 
+            }
+
+            if(weaponManager.currentWeapon.fireType == GameConstants.FireType.AUTOMATIC)
+            {
+                characterNode.StateMachineNode.SwitchState<CharacterAutomaticShotState>(); 
+            }
+            
         }
 
         if(!characterNode.ControllerNode.aim)

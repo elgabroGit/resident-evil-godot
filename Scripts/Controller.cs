@@ -9,6 +9,7 @@ public partial class Controller : Node
     public bool interact = false;
     public bool shot = false;
     public bool moving = false;
+    public bool shooting = false;
 
     private Vector2 previousDirection = Vector2.Zero; // Direzione precedente
     public Vector3 storedMoveDirection = Vector3.Zero;
@@ -26,6 +27,7 @@ public partial class Controller : Node
         aim = ToggleAction(GameConstants.INPUT_AIM);
         run = ToggleAction(GameConstants.INPUT_RUN);
         interact = ToggleAction(GameConstants.INPUT_INTERACT, true);
+        shooting = ToggleAction(GameConstants.INPUT_INTERACT);
 
         if(aim){
             shot = ToggleAction(GameConstants.INPUT_INTERACT, true);
@@ -45,8 +47,7 @@ public partial class Controller : Node
     public override void _Process(double delta)
     {
         base._Process(delta);
-        // GD.Print("Moving: " + moving);
-        // GD.Print("Shot: " + shot);
+        //GD.Print("Moving: " + shooting);
     }
 
     // Metodo per controllare se la direzione è cambiata

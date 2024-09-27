@@ -30,6 +30,9 @@ data = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0,
 
 [node name="LivelloTest" type="Node3D"]
 
+[node name="hero2" parent="." instance=ExtResource("1_012ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
 [node name="Ambiente" type="Node" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Ambiente"]
@@ -63,11 +66,5 @@ shape = SubResource("ConcavePolygonShape3D_c36yx")
 [node name="Enemies" type="Node3D" parent="."]
 
 [node name="Zombie" parent="Enemies" instance=ExtResource("6_onqyp")]
-transform = Transform3D(0.47, 0, 0, 0, 0.47, 0, 0, 0, 0.47, 0, 0, 4.10837)
-baseGrabDamage = 1
-MaxHealthValue = 10
-
-[node name="hero" parent="." instance=ExtResource("1_012ve")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.54246)
 
 [editable path="Cameras/AreaCamera"]

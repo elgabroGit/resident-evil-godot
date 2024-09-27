@@ -31,6 +31,12 @@ public class GameConstants
         MAINMENU
     }
 
+    public enum FireType{
+        MANUAL,
+        AUTOMATIC,
+        SEMIAUTOMATIC
+    }
+
     // Notification System
     public const int NOTIFICATION_ENTER_STATE = 5001;
     public const int NOTIFICATION_EXIT_STATE = 5002;

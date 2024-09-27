@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cwwg0rqavood8"]
+[gd_scene load_steps=32 format=3 uid="uid://cwwg0rqavood8"]
 
 [ext_resource type="Texture2D" uid="uid://cgh6toafrvaxb" path="res://Hero/hero_man_tex256.png" id="1_0ne58"]
 [ext_resource type="Script" path="res://Scripts/Character.cs" id="1_qn802"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/CharacterAimState.cs" id="11_5j3py"]
 [ext_resource type="Script" path="res://Scripts/CharacterGrabbedState.cs" id="12_ba6np"]
 [ext_resource type="Script" path="res://Scripts/CharacterShotState.cs" id="12_bhfj1"]
+[ext_resource type="Script" path="res://Scripts/CharacterAutomaticShotState.cs" id="12_dghhd"]
 [ext_resource type="Script" path="res://Scripts/CharacterDeathState.cs" id="13_sp2ay"]
 [ext_resource type="AudioStream" uid="uid://bxaut6jouude2" path="res://assets/audio/player_dead.ogg" id="14_63xpi"]
 
@@ -4276,7 +4277,7 @@ shape = SubResource("CapsuleShape3D_vl13v")
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("currentState", "states")]
 script = ExtResource("7_naet0")
 currentState = NodePath("Idle")
-states = [NodePath("Idle"), NodePath("Walk"), NodePath("Run"), NodePath("Aim"), NodePath("Shot"), NodePath("Grabbed"), NodePath("Death")]
+states = [NodePath("Idle"), NodePath("Walk"), NodePath("Run"), NodePath("Aim"), NodePath("Shot"), NodePath("AutomaticShot"), NodePath("Grabbed"), NodePath("Death")]
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("8_n7rk0")
@@ -4297,6 +4298,10 @@ weaponManager = NodePath("../../Armature/Skeleton3D/BoneAttachment3D/WeaponManag
 
 [node name="Shot" type="Node" parent="StateMachine" node_paths=PackedStringArray("weaponManager")]
 script = ExtResource("12_bhfj1")
+weaponManager = NodePath("../../Armature/Skeleton3D/BoneAttachment3D/WeaponManager")
+
+[node name="AutomaticShot" type="Node" parent="StateMachine" node_paths=PackedStringArray("weaponManager")]
+script = ExtResource("12_dghhd")
 weaponManager = NodePath("../../Armature/Skeleton3D/BoneAttachment3D/WeaponManager")
 
 [node name="Grabbed" type="Node" parent="StateMachine"]
