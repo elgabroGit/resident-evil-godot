@@ -39,6 +39,6 @@ public partial class EnemyGrabState : State
 
     private void HandleTimeout()
     {
-        GD.Print("Timer Finished");
+        GD.Print("Grab Cooldown Finished");
     }
 }

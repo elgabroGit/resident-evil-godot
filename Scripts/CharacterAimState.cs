@@ -6,6 +6,7 @@ public partial class CharacterAimState : State
     [Export(PropertyHint.Range, "0,20,0.1")] public float lerp = 2;
     [Export] private WeaponManager weaponManager;
     private Node3D currentTarget = null;
+    public static bool canAim = true;
     
     public override void _PhysicsProcess(double delta)
     {
@@ -53,11 +54,13 @@ public partial class CharacterAimState : State
     {
         if(characterNode.ControllerNode.shot)
         {
-            characterNode.StateMachineNode.SwitchState<CharacterShotState>();
+            canAim = false;
+            characterNode.StateMachineNode.SwitchState<CharacterShotState>(); 
         }
 
         if(!characterNode.ControllerNode.aim)
         {
+            canAim = true;
             characterNode.StateMachineNode.SwitchState<CharacterIdleState>();
         }
     }
@@ -66,7 +69,8 @@ public partial class CharacterAimState : State
 	{
 		base.EnterState();
 		characterNode.AnimPlayerNode.Play(weaponManager.currentWeapon.animationIdle);
-        AimToLocalEnemy();
+        if(canAim){ AimToLocalEnemy(); }
+       
         
 	}
 

@@ -173,7 +173,7 @@ radius = 0.554678
 height = 1.88183
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_taqpd"]
-radius = 54.0
+radius = 6.632
 
 [sub_resource type="Animation" id="Animation_m7472"]
 resource_name = "die"
