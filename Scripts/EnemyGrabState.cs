@@ -10,7 +10,7 @@ public partial class EnemyGrabState : State
     {
         if(grabCooldown.IsStopped())
         {
-            characterNode.AnimPlayerNode.Play("bite");
+            characterNode.AnimPlayerNode.Play("grab");
             grabCooldown.Start();
             characterNode.AnimPlayerNode.AnimationFinished += HandleAnimationFinished;
             grabCooldown.Timeout += HandleTimeout;
