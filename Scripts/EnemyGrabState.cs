@@ -33,6 +33,7 @@ public partial class EnemyGrabState : State
         Zombie zombie = (Zombie) characterNode;
         player.damageReceived = zombie.baseGrabDamage;
         player.HealthValue -= player.damageReceived;
+        // player.GlobalPosition = characterNode.lastGrabPositionBodySaved;
         characterNode.StateMachineNode.SwitchState<EnemyChaseState>();
     }
 

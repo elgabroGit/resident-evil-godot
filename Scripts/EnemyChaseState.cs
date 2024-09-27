@@ -11,8 +11,10 @@ public partial class EnemyChaseState : State
     protected override void EnterState()
 	{
 		base.EnterState();
+        
         SetPhysicsProcess(true);
         GD.Print("EnterWalkState");
+        GD.Print(IsPhysicsProcessing());
 		characterNode.AnimPlayerNode.Play("walk");
         characterNode.EnemyDetectionArea.BodyExited += HandlePlayerExited;
         grabArea.BodyEntered += HandleGrab;
@@ -45,14 +47,15 @@ public partial class EnemyChaseState : State
 
         characterNode.LookAt(targetPosition);
         characterNode.RotateY(Mathf.Pi);
-        characterNode.MoveAndSlide();
+
 
         if( grabArea.HasOverlappingBodies() && target == grabArea.GetOverlappingBodies()[0])
         { 
             // Sei un cazzo di boccalone...
-            SetPhysicsProcess(false);
             HandleGrab(grabArea.GetOverlappingBodies()[0]);
         }
+
+        characterNode.MoveAndSlide();
     }
 
 
@@ -73,15 +76,16 @@ public partial class EnemyChaseState : State
     {
 
         if(grabCooldown.IsStopped())
-        {
-            
+        {   
             if( body == null) { return; }
             Character player = (Character) body;
+            //characterNode.lastGrabPositionBodySaved = player.GlobalPosition;
             player.GlobalPosition = new Vector3(grabArea.GlobalPosition.X,0,grabArea.GlobalPosition.Z);
             player.LookAt(characterNode.GlobalPosition, Vector3.Up);
             player.RotateY((float) Math.PI);
             characterNode.enemyGrabbed = player;
             player.Grabbed();
+            SetPhysicsProcess(false);
             characterNode.StateMachineNode.SwitchState<EnemyGrabState>();
         }
     }

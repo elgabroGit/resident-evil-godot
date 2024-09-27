@@ -16,6 +16,7 @@ public abstract partial class Entity : CharacterBody3D
 
     public float originalSphereRadius;
     public Node3D enemyGrabbed;
+    public Vector3 lastGrabPositionBodySaved;
 
     public override void _Ready()
     {
