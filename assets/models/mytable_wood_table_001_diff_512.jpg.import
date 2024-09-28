@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbksthajksvy"
-path.s3tc="res://.godot/imported/texture_13.png-bfc7f9cd3bf603065beb476771ef0fad.s3tc.ctex"
+uid="uid://bkadaabau2on3"
+path.s3tc="res://.godot/imported/mytable_wood_table_001_diff_512.jpg-9d7eecd9f6ce948e7974671fe76eb793.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "6803003675224b9d24258b8d01652edd"
+}
 
 [deps]
 
-source_file="res://kenny_protypes/Red/texture_13.png"
-dest_files=["res://.godot/imported/texture_13.png-bfc7f9cd3bf603065beb476771ef0fad.s3tc.ctex"]
+source_file="res://assets/models/mytable_wood_table_001_diff_512.jpg"
+dest_files=["res://.godot/imported/mytable_wood_table_001_diff_512.jpg-9d7eecd9f6ce948e7974671fe76eb793.s3tc.ctex"]
 
 [params]
 

@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://b8kosbpwbsrgx"]
+
+[ext_resource type="Script" path="res://Scripts/Items/KeyItem.cs" id="1_ks6pj"]
+[ext_resource type="Texture2D" uid="uid://cd0ie8s1u7wqt" path="res://assets/itemicons/key-svgrepo-com.svg" id="2_itib6"]
+[ext_resource type="Texture2D" uid="uid://bbksthajksvy" path="res://kenny_protypes/Red/texture_13.png" id="3_n1guq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a4uff"]
+albedo_texture = ExtResource("3_n1guq")
+uv1_triplanar = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_yxdn4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uncto"]
+
+[node name="Key" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 16
+script = ExtResource("1_ks6pj")
+itemName = "Key Item 1"
+description = "La prima chiave creata come test del gioco."
+icon = ExtResource("2_itib6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_a4uff")
+mesh = SubResource("SphereMesh_yxdn4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_uncto")

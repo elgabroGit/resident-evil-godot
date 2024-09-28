@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Resident Evil"
-run/main_scene="res://LivelloTest/livello_test_2.tscn"
+run/main_scene="res://LivelloTest/livello_test.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://zombie-svgrepo-com.svg"
 
@@ -104,3 +104,4 @@ switch_down={
 3d_physics/layer_2="player"
 3d_physics/layer_3="enemies"
 3d_physics/layer_4="cameras"
+3d_physics/layer_5="items"

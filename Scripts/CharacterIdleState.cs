@@ -20,6 +20,11 @@ public partial class CharacterIdleState : State
         {
             characterNode.StateMachineNode.SwitchState<CharacterAimState>();
         }
+
+        if(characterNode.ControllerNode.interact)
+        {
+            characterNode.StateMachineNode.SwitchState<CharacterCheckState>();
+        }
     }
 
 	protected override void EnterState()

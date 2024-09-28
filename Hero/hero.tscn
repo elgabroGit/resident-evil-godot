@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cwwg0rqavood8"]
+[gd_scene load_steps=35 format=3 uid="uid://cwwg0rqavood8"]
 
 [ext_resource type="Texture2D" uid="uid://cgh6toafrvaxb" path="res://Hero/hero_man_tex256.png" id="1_0ne58"]
 [ext_resource type="Script" path="res://Scripts/Character.cs" id="1_qn802"]
@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://86hx2hhgs1f6" path="res://Commons/Beretta.tscn" id="4_2hdp3"]
 [ext_resource type="PackedScene" uid="uid://ckjwmjq13esw0" path="res://Commons/Rifle.tscn" id="5_druhe"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.cs" id="7_naet0"]
+[ext_resource type="Script" path="res://Scripts/CharacterCheckState.cs" id="8_ijiym"]
 [ext_resource type="Script" path="res://Scripts/CharacterIdleState.cs" id="8_n7rk0"]
+[ext_resource type="Script" path="res://Scripts/CharacterPickState.cs" id="9_4bwfr"]
 [ext_resource type="Script" path="res://Scripts/CharacterWalkState.cs" id="9_onyx7"]
 [ext_resource type="Script" path="res://Scripts/Controller.cs" id="9_u37cb"]
 [ext_resource type="Script" path="res://Scripts/CharacterRunState.cs" id="10_4xveq"]
@@ -172,6 +174,9 @@ bind/40/pose = Transform3D(-99.2969, -6.37358, 9.97413, 10.0596, -1.03079, 99.48
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vl13v"]
 radius = 0.554678
 height = 1.88183
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dejjk"]
+size = Vector3(3.53082, 1, 2.02637)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_taqpd"]
 radius = 6.632
@@ -3947,7 +3952,7 @@ _data = {
 "walk": SubResource("Animation_2mrda")
 }
 
-[node name="hero2" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "StateMachineNode", "EnemyDetectionArea", "ControllerNode")]
+[node name="hero2" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "StateMachineNode", "EnemyDetectionArea", "CheckBox", "ControllerNode")]
 collision_layer = 2
 axis_lock_angular_x = true
 axis_lock_angular_z = true
@@ -3955,6 +3960,7 @@ script = ExtResource("1_qn802")
 AnimPlayerNode = NodePath("AnimationPlayer")
 StateMachineNode = NodePath("StateMachine")
 EnemyDetectionArea = NodePath("EnemyDetectionArea")
+CheckBox = NodePath("CheckDetectionArea")
 ControllerNode = NodePath("Controller")
 MaxHealthValue = 10
 
@@ -4255,7 +4261,7 @@ mesh = SubResource("ArrayMesh_5kqee")
 skin = SubResource("Skin_12tmk")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D"]
-transform = Transform3D(0.267699, -0.22598, 0.936627, -0.0108165, 0.97134, 0.237447, -0.963442, -0.0736954, 0.257583, -10.2302, 51.4147, -154.291)
+transform = Transform3D(0.2677, -0.225979, 0.936627, -0.0108168, 0.97134, 0.237446, -0.963441, -0.0736957, 0.257584, -10.2302, 51.4147, -154.291)
 bone_name = "mixamorig_RightHand"
 bone_idx = 22
 
@@ -4277,10 +4283,16 @@ shape = SubResource("CapsuleShape3D_vl13v")
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("currentState", "states")]
 script = ExtResource("7_naet0")
 currentState = NodePath("Idle")
-states = [NodePath("Idle"), NodePath("Walk"), NodePath("Run"), NodePath("Aim"), NodePath("Shot"), NodePath("AutomaticShot"), NodePath("Grabbed"), NodePath("Death")]
+states = [NodePath("Idle"), NodePath("Check"), NodePath("Pick"), NodePath("Walk"), NodePath("Run"), NodePath("Aim"), NodePath("Shot"), NodePath("AutomaticShot"), NodePath("Grabbed"), NodePath("Death")]
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("8_n7rk0")
+
+[node name="Check" type="Node" parent="StateMachine"]
+script = ExtResource("8_ijiym")
+
+[node name="Pick" type="Node" parent="StateMachine"]
+script = ExtResource("9_4bwfr")
 
 [node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource("9_onyx7")
@@ -4318,6 +4330,14 @@ volume_db = -12.766
 
 [node name="Controller" type="Node" parent="."]
 script = ExtResource("9_u37cb")
+
+[node name="CheckDetectionArea" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 16
+
+[node name="CheckBox" type="CollisionShape3D" parent="CheckDetectionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.135345, 1.4726, 1.2833)
+shape = SubResource("BoxShape3D_dejjk")
 
 [node name="EnemyDetectionArea" type="Area3D" parent="."]
 collision_layer = 0

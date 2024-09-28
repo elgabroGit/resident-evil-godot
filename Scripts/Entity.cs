@@ -7,8 +7,9 @@ public abstract partial class Entity : CharacterBody3D
     [Export] public AnimationPlayer AnimPlayerNode {get; private set; } 
     [Export] public StateMachine StateMachineNode {get; private set; }
     [Export] public Area3D EnemyDetectionArea {get; private set; }
+    [Export] public Area3D CheckBox {get; private set; }
     [Export] public Controller ControllerNode {get; private set; }
-
+    
     [ExportGroup("Stats")]
     [Export] public int MaxHealthValue {get; private set; }
     public int HealthValue; 

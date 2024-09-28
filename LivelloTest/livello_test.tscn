@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://64b0c4nj4ciy"]
+[gd_scene load_steps=13 format=3 uid="uid://64b0c4nj4ciy"]
 
 [ext_resource type="PackedScene" uid="uid://cwwg0rqavood8" path="res://Hero/hero.tscn" id="1_012ve"]
 [ext_resource type="Texture2D" uid="uid://dbt0hv34odchc" path="res://kenny_protypes/Dark/texture_01.png" id="1_b5ci7"]
 [ext_resource type="PackedScene" uid="uid://cukj02mkellsd" path="res://Commons/AreaCamera.tscn" id="2_f6n0d"]
+[ext_resource type="PackedScene" uid="uid://ck5qtr1ikqq4v" path="res://assets/models/mytable.glb" id="4_gc7wr"]
+[ext_resource type="PackedScene" uid="uid://b8kosbpwbsrgx" path="res://Items/key.tscn" id="5_2ycbi"]
 [ext_resource type="PackedScene" uid="uid://bgo648gcuf5rx" path="res://Enemy/Enemy.tscn" id="6_onqyp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qeffc"]
@@ -63,7 +65,15 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Build/Pavimento/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_c36yx")
 
+[node name="mytable" parent="Build" instance=ExtResource("4_gc7wr")]
+transform = Transform3D(0.15, 0, 0.259808, 0, 0.3, 0, -0.259808, 0, 0.15, 1.52729, 0, -1.28901)
+
+[node name="Key" parent="Build/mytable" instance=ExtResource("5_2ycbi")]
+transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 3.83333, 0)
+
 [node name="Enemies" type="Node3D" parent="."]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.96426, 0, -8.04363)
 
 [node name="Zombie" parent="Enemies" instance=ExtResource("6_onqyp")]
 MaxHealthValue = 90
