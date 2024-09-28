@@ -52,8 +52,9 @@ shader_params/u_depth_blending = true
 shader_params/u_triplanar = null
 shader_params/u_tile_reduction = null
 
-[node name="hero2" parent="." instance=ExtResource("4_xvpu3")]
+[node name="hero2" parent="." node_paths=PackedStringArray("inventory") instance=ExtResource("4_xvpu3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.74065, 0, -11.7306)
+inventory = []
 
 [node name="Cameras" type="Node3D" parent="."]
 

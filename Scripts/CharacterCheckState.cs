@@ -5,14 +5,10 @@ public partial class CharacterCheckState : State
 {
     protected override void EnterState()
     {
-        GD.Print("Enter Check State");
-
         if(characterNode.CheckBox.HasOverlappingBodies())
         {
             Item item = (Item) characterNode.CheckBox.GetOverlappingBodies()[0];
-            GD.Print(item.itemName);
-            DelegateItemLogic(item);
-            
+            DelegateItemLogic(item);          
         }
         else
         {

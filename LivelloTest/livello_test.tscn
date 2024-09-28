@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://64b0c4nj4ciy"]
+[gd_scene load_steps=14 format=3 uid="uid://64b0c4nj4ciy"]
 
 [ext_resource type="PackedScene" uid="uid://cwwg0rqavood8" path="res://Hero/hero.tscn" id="1_012ve"]
 [ext_resource type="Texture2D" uid="uid://dbt0hv34odchc" path="res://kenny_protypes/Dark/texture_01.png" id="1_b5ci7"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ck5qtr1ikqq4v" path="res://assets/models/mytable.glb" id="4_gc7wr"]
 [ext_resource type="PackedScene" uid="uid://b8kosbpwbsrgx" path="res://Items/key.tscn" id="5_2ycbi"]
 [ext_resource type="PackedScene" uid="uid://bgo648gcuf5rx" path="res://Enemy/Enemy.tscn" id="6_onqyp"]
+[ext_resource type="Script" path="res://Scripts/UI/DisplayItems.cs" id="7_q8m7j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qeffc"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -71,11 +72,49 @@ transform = Transform3D(0.15, 0, 0.259808, 0, 0.3, 0, -0.259808, 0, 0.15, 1.5272
 [node name="Key" parent="Build/mytable" instance=ExtResource("5_2ycbi")]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 3.83333, 0)
 
+[node name="Key2" parent="Build/mytable" instance=ExtResource("5_2ycbi")]
+transform = Transform3D(1, 0, -1.19209e-07, 0, 1, 0, 5.96046e-08, 0, 1, -1.00535, 3.83333, 2.17555)
+
+[node name="Key3" parent="Build/mytable" instance=ExtResource("5_2ycbi")]
+transform = Transform3D(1, 0, -2.08616e-07, 0, 1, 0, 8.9407e-08, 0, 1, 0.770687, 3.83333, -2.29193)
+
+[node name="Key4" parent="Build/mytable" instance=ExtResource("5_2ycbi")]
+transform = Transform3D(1, 0, -3.27826e-07, 0, 1, 0, 1.78814e-07, 0, 1, -1.51499, 3.83333, -2.04773)
+
+[node name="Key5" parent="Build/mytable" instance=ExtResource("5_2ycbi")]
+transform = Transform3D(1, 0, -3.27826e-07, 0, 1, 0, 1.78814e-07, 0, 1, -1.60531, 3.83333, -0.245238)
+
+[node name="Key6" parent="Build/mytable" instance=ExtResource("5_2ycbi")]
+transform = Transform3D(1, 0, -3.27826e-07, 0, 1, 0, 1.78814e-07, 0, 1, 0.709119, 3.83333, 1.14672)
+
+[node name="Key7" parent="Build/mytable" instance=ExtResource("5_2ycbi")]
+transform = Transform3D(1, 0, -2.68221e-07, 0, 1, 0, 1.19209e-07, 0, 1, -1.31188, 3.83333, 1.01824)
+
 [node name="Enemies" type="Node3D" parent="."]
 process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.96426, 0, -8.04363)
 
 [node name="Zombie" parent="Enemies" instance=ExtResource("6_onqyp")]
 MaxHealthValue = 90
+
+[node name="TEMPORARY" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="TEMPORARY" node_paths=PackedStringArray("character")]
+layout_mode = 0
+offset_left = 794.0
+offset_top = 483.0
+offset_right = 964.0
+offset_bottom = 533.0
+columns = 3
+script = ExtResource("7_q8m7j")
+character = NodePath("../../hero2")
+
+[connection signal="ItemAdded" from="hero2" to="TEMPORARY/GridContainer" method="_on_hero_2_item_added"]
 
 [editable path="Cameras/AreaCamera"]
