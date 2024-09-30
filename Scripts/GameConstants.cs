@@ -21,6 +21,7 @@ public class GameConstants
     public const string INPUT_INTERACT = "interact";
     public const string INPUT_SWITCH_UP = "switch_up";
     public const string INPUT_SWITCH_DOWN = "switch_down";
+    public const string INPUT_MENU = "menu";
 
     public enum GameState{
         RUNNING,

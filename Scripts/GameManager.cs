@@ -38,6 +38,12 @@ public partial class GameManager : Node
             deathTimer.Start();
             SetProcess(false);
         }
+
+        if(gameState == GameConstants.GameState.MENU)
+        {
+            Engine.TimeScale = 0;
+            SetProcess(false);
+        }
     }
 
     public void ChangeGameState(GameConstants.GameState newState)
@@ -53,6 +59,5 @@ public partial class GameManager : Node
         GetTree().Quit();
 
     }
-
 
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://64b0c4nj4ciy"]
+[gd_scene load_steps=18 format=3 uid="uid://64b0c4nj4ciy"]
 
 [ext_resource type="PackedScene" uid="uid://cwwg0rqavood8" path="res://Hero/hero.tscn" id="1_012ve"]
 [ext_resource type="Texture2D" uid="uid://dbt0hv34odchc" path="res://kenny_protypes/Dark/texture_01.png" id="1_b5ci7"]
@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://ck5qtr1ikqq4v" path="res://assets/models/mytable.glb" id="4_gc7wr"]
 [ext_resource type="PackedScene" uid="uid://b8kosbpwbsrgx" path="res://Items/key.tscn" id="5_2ycbi"]
 [ext_resource type="PackedScene" uid="uid://bgo648gcuf5rx" path="res://Enemy/Enemy.tscn" id="6_onqyp"]
+[ext_resource type="Script" path="res://Scripts/MenuInventory.cs" id="7_d1fes"]
 [ext_resource type="Script" path="res://Scripts/UI/DisplayItems.cs" id="7_q8m7j"]
+[ext_resource type="Script" path="res://Scripts/UI/HealthBar.cs" id="9_6s60q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qeffc"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -30,6 +32,11 @@ size = Vector2(20, 20)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_c36yx"]
 data = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0, -10, 10, 0, -10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0iio8"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s7f0l"]
 
 [node name="LivelloTest" type="Node3D"]
 
@@ -91,11 +98,12 @@ transform = Transform3D(1, 0, -3.27826e-07, 0, 1, 0, 1.78814e-07, 0, 1, 0.709119
 transform = Transform3D(1, 0, -2.68221e-07, 0, 1, 0, 1.19209e-07, 0, 1, -1.31188, 3.83333, 1.01824)
 
 [node name="Enemies" type="Node3D" parent="."]
-process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.96426, 0, -8.04363)
 
 [node name="Zombie" parent="Enemies" instance=ExtResource("6_onqyp")]
-MaxHealthValue = 90
+transform = Transform3D(0.403345, 0, 0.241273, 0, 0.47, 0, -0.241273, 0, 0.403345, 7.77365, 0, 8.51015)
+baseGrabDamage = 3
+MaxHealthValue = 3
 
 [node name="TEMPORARY" type="Control" parent="."]
 layout_mode = 3
@@ -105,16 +113,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GridContainer" type="GridContainer" parent="TEMPORARY" node_paths=PackedStringArray("character")]
-layout_mode = 0
-offset_left = 794.0
-offset_top = 483.0
-offset_right = 964.0
-offset_bottom = 533.0
-columns = 3
-script = ExtResource("7_q8m7j")
+[node name="MenuInventory" type="Panel" parent="TEMPORARY" node_paths=PackedStringArray("character")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_d1fes")
 character = NodePath("../../hero2")
 
-[connection signal="ItemAdded" from="hero2" to="TEMPORARY/GridContainer" method="_on_hero_2_item_added"]
+[node name="ItemList" type="ItemList" parent="TEMPORARY/MenuInventory"]
+layout_mode = 0
+offset_left = 698.0
+offset_top = 425.0
+offset_right = 967.0
+offset_bottom = 567.0
+max_columns = 3
+same_column_width = true
+fixed_icon_size = Vector2i(16, 16)
+script = ExtResource("7_q8m7j")
+
+[node name="ProgressBar" type="ProgressBar" parent="TEMPORARY/MenuInventory"]
+layout_mode = 0
+offset_left = 699.0
+offset_top = 591.0
+offset_right = 1055.0
+offset_bottom = 618.0
+theme_override_styles/background = SubResource("StyleBoxFlat_0iio8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_s7f0l")
+max_value = 1.0
+value = 0.93
+show_percentage = false
+script = ExtResource("9_6s60q")
 
 [editable path="Cameras/AreaCamera"]

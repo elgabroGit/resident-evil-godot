@@ -8,6 +8,7 @@ public partial class Character : Entity
     [Export] public int inventoryMaxSize = 6;
     [Export] public Item[] inventory;
     [Signal] public delegate void ItemAddedEventHandler(Item newItem);
+    
 
     public override void _Ready()
     {
