@@ -13,6 +13,7 @@ public partial class Character : Entity
     public override void _Ready()
     {
         base._Ready();
+
     }
 
     public override void Die()

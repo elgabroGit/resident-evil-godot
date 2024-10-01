@@ -27,8 +27,6 @@ public partial class HealthBar : ProgressBar
         else{
             styleBox.BgColor = Colors.Red;
         }
-        ShaderMaterial shaderMaterial = (ShaderMaterial) Material;
-        shaderMaterial.SetShaderParameter("value", Value / MaxValue);
         AddThemeStyleboxOverride("fill", styleBox);
         GD.Print(Value);
     }

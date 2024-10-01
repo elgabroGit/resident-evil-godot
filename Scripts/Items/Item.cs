@@ -13,6 +13,7 @@ public abstract partial class Item : StaticBody3D{
     [Export]
     public Texture2D icon {set; get;}
 
+
     public void ReadDescription()
     {
         GD.Print(description);
