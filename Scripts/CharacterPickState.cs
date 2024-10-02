@@ -4,6 +4,9 @@ using System;
 public partial class CharacterPickState : State
 {
     [Export] private CanvasLayer choisePanel;
+    [Export] private AudioStreamPlayer open;
+    [Export] private AudioStreamPlayer accept;
+    [Export] private AudioStreamPlayer decline;
     private Character player;
     private bool choise = false;
     private Item item;
@@ -12,23 +15,43 @@ public partial class CharacterPickState : State
     Button btnNo;
     Control controlNode;
     
+    float distanceInFrontOfCamera = 2.0f;
+    
     protected override void EnterState()
     {
         player = (Character)characterNode;
+
         item = player.itemToPick;
-        GD.Print(player.itemToPick);
-        btnYes = GetNode<Button>("CanvasLayer/Control/Panel/HBoxContainer/ButtonConfirm");
-        btnNo = GetNode<Button>("CanvasLayer/Control/Panel/HBoxContainer/ButtonDeny");
-        controlNode = GetNode<Control>("CanvasLayer/Control");
-
+        model = (MeshInstance3D)item.model.Duplicate();
         
+        model.Visible = true;
+        GetTree().Root.AddChild(model);   
+        btnYes = GetNode<Button>("CanvasLayer/Control/Panel/VBoxContainer/ButtonConfirm");
+        btnNo = GetNode<Button>("CanvasLayer/Control/Panel/VBoxContainer/ButtonDeny");
+        controlNode = GetNode<Control>("CanvasLayer/Control");
+        RichTextLabel label = GetNode<RichTextLabel>("CanvasLayer/Control/Panel/Label");
+        
+        Camera3D camera = GameManager.Instance.ActiveCamera;
+        Vector3 cameraPosition = camera.GlobalPosition;
+        Vector3 cameraForward = camera.GlobalTransform.Basis.Z.Normalized(); 
 
+        model.GlobalPosition = cameraPosition - cameraForward * distanceInFrontOfCamera;
+        
+        // Imposta la scala iniziale a 0.1
+        model.Scale = new Vector3(0.1f, 0.1f, 0.1f);
         characterNode.AnimPlayerNode.AnimationFinished += HandleAnimationFinished;
         btnYes.Pressed += HandleButtonConfirmation;
         btnNo.Pressed += HandleButtonDecline; 
+
+        label.Text = "Ho trovato [color=red]" + item.itemName + "[/color].\nRaccogli?";
+
+        btnYes.GrabFocus();
+        btnYes.Disabled = true;
+        
+
         DisplayChoise();
         
-        if(player.IsInventoryFull())
+        if (player.IsInventoryFull())
         {
             characterNode.StateMachineNode.SwitchState<CharacterIdleState>();
         }
@@ -58,31 +81,52 @@ public partial class CharacterPickState : State
         characterNode.AnimPlayerNode.AnimationFinished -= HandleAnimationFinished;
         btnYes.Pressed -= HandleButtonConfirmation;
         btnNo.Pressed -= HandleButtonDecline; 
+        model.QueueFree();
         controlNode.Hide();
     }
 
     public void DisplayChoise()
     {
+        open.Play();
         GetTree().Paused = true;
         controlNode.Show();
-        GD.Print("Prova");
+        model.SetProcess(true);
+        
     }
 
     private void HandleButtonDecline()
     {
         GetTree().Paused = false;
         choise = false;
-        GD.Print("NO, oggetto non raccolto");
+        decline.Play();
+        model.Visible = false;
         controlNode.Hide();
-        characterNode.StateMachineNode.SwitchState<CharacterIdleState>(); // Passa allo stato inattivo senza raccogliere l'oggetto
+        characterNode.StateMachineNode.SwitchState<CharacterIdleState>();
     }
 
     private void HandleButtonConfirmation()
     {
         GetTree().Paused = false;
         choise = true;
-        GD.Print("SI, oggetto raccolto");
+        accept.Play();
+        model.Visible = false;
         controlNode.Hide();
-        // L'animazione si occuperà di chiamare HandleAnimationFinished e di aggiungere l'oggetto
+    }
+
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+        
+        if (IsInstanceValid(model) && model != null && model.Visible)
+        {
+            if(model.Scale.X < 1f){
+                model.Scale *= 1.07f;
+            }else{
+                btnYes.Disabled = false;
+            }
+
+
+            model.RotateY(Mathf.DegToRad(30 * (float)delta));  
+        }
     }
 }

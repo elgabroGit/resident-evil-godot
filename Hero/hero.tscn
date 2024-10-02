@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cwwg0rqavood8"]
+[gd_scene load_steps=40 format=3 uid="uid://cwwg0rqavood8"]
 
 [ext_resource type="Texture2D" uid="uid://cgh6toafrvaxb" path="res://Hero/hero_man_tex256.png" id="1_0ne58"]
 [ext_resource type="Script" path="res://Scripts/Character.cs" id="1_qn802"]
@@ -11,11 +11,15 @@
 [ext_resource type="Script" path="res://Scripts/CharacterPickState.cs" id="9_4bwfr"]
 [ext_resource type="Script" path="res://Scripts/CharacterWalkState.cs" id="9_onyx7"]
 [ext_resource type="Script" path="res://Scripts/Controller.cs" id="9_u37cb"]
+[ext_resource type="FontFile" uid="uid://8d4vsl4qmaxv" path="res://assets/fonts/ApeMount-WyPM9.ttf" id="10_4fo40"]
 [ext_resource type="Script" path="res://Scripts/CharacterRunState.cs" id="10_4xveq"]
+[ext_resource type="AudioStream" uid="uid://c6hcb2fbs2c7y" path="res://assets/audio/menu_open.ogg" id="10_rov2a"]
 [ext_resource type="Script" path="res://Scripts/CharacterAimState.cs" id="11_5j3py"]
+[ext_resource type="AudioStream" uid="uid://t7quji384bwb" path="res://assets/audio/menu_1.ogg" id="11_pu58j"]
 [ext_resource type="Script" path="res://Scripts/CharacterGrabbedState.cs" id="12_ba6np"]
 [ext_resource type="Script" path="res://Scripts/CharacterShotState.cs" id="12_bhfj1"]
 [ext_resource type="Script" path="res://Scripts/CharacterAutomaticShotState.cs" id="12_dghhd"]
+[ext_resource type="AudioStream" uid="uid://d5x7l8n1q4o7" path="res://assets/audio/menu_2.ogg" id="12_ksy4q"]
 [ext_resource type="Script" path="res://Scripts/CharacterDeathState.cs" id="13_sp2ay"]
 [ext_resource type="AudioStream" uid="uid://bxaut6jouude2" path="res://assets/audio/player_dead.ogg" id="14_63xpi"]
 
@@ -4920,11 +4924,25 @@ script = ExtResource("8_n7rk0")
 [node name="Check" type="Node" parent="StateMachine"]
 script = ExtResource("8_ijiym")
 
-[node name="Pick" type="Node" parent="StateMachine" node_paths=PackedStringArray("choisePanel")]
+[node name="Pick" type="Node" parent="StateMachine" node_paths=PackedStringArray("choisePanel", "open", "accept", "decline")]
+process_mode = 3
 script = ExtResource("9_4bwfr")
 choisePanel = NodePath("CanvasLayer")
+open = NodePath("Open")
+accept = NodePath("Accept")
+decline = NodePath("Decline")
+
+[node name="Open" type="AudioStreamPlayer" parent="StateMachine/Pick"]
+stream = ExtResource("10_rov2a")
+
+[node name="Accept" type="AudioStreamPlayer" parent="StateMachine/Pick"]
+stream = ExtResource("11_pu58j")
+
+[node name="Decline" type="AudioStreamPlayer" parent="StateMachine/Pick"]
+stream = ExtResource("12_ksy4q")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="StateMachine/Pick"]
+follow_viewport_enabled = true
 
 [node name="Control" type="Control" parent="StateMachine/Pick/CanvasLayer"]
 process_mode = 3
@@ -4937,6 +4955,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="StateMachine/Pick/CanvasLayer/Control"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -4944,25 +4963,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="StateMachine/Pick/CanvasLayer/Control/Panel"]
+[node name="Label" type="RichTextLabel" parent="StateMachine/Pick/CanvasLayer/Control/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -314.5
-offset_top = -73.0
-offset_right = 314.5
-offset_bottom = 73.0
+offset_left = -554.0
+offset_top = 212.0
+offset_right = 559.0
+offset_bottom = 306.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 60
+theme_override_fonts/normal_font = ExtResource("10_4fo40")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
 text = "PRENDERE OGGETTO?"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="StateMachine/Pick/CanvasLayer/Control/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="StateMachine/Pick/CanvasLayer/Control/Panel"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -4970,21 +4989,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -28.5
-offset_top = 73.0
-offset_right = 28.5
-offset_bottom = 113.0
+offset_left = -545.0
+offset_top = -76.0
+offset_right = -235.0
+offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
 
-[node name="ButtonConfirm" type="Button" parent="StateMachine/Pick/CanvasLayer/Control/Panel/HBoxContainer"]
+[node name="ButtonConfirm" type="Button" parent="StateMachine/Pick/CanvasLayer/Control/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Sì"
 
-[node name="ButtonDeny" type="Button" parent="StateMachine/Pick/CanvasLayer/Control/Panel/HBoxContainer"]
+[node name="ButtonDeny" type="Button" parent="StateMachine/Pick/CanvasLayer/Control/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40

@@ -20,7 +20,7 @@ itemName = "Key Item 1"
 description = "La prima chiave creata come test del gioco."
 icon = ExtResource("2_itib6")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Key Item 1" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_a4uff")
 mesh = SubResource("SphereMesh_yxdn4")
 

@@ -13,6 +13,13 @@ public abstract partial class Item : StaticBody3D{
     [Export]
     public Texture2D icon {set; get;}
 
+    public MeshInstance3D model;
+
+    public override void _Ready()
+    {
+        base._Ready();
+        model = GetNode<MeshInstance3D>(itemName);
+    }
 
     public void ReadDescription()
     {
